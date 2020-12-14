@@ -303,8 +303,15 @@ function isCreditCardNumber(cnn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  function recursive(numb) {
+    if (numb > 9) {
+      const x = numb.toString().split('').reduce((sum, curr) => sum + Number(curr), 0);
+      return recursive(x);
+    }
+    return numb;
+  }
+  return recursive(num);
 }
 
 
