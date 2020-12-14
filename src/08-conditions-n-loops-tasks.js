@@ -184,8 +184,16 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let sym = 0;
+  for (let i = 1; i < str.length; i += 1) {
+    if (str[sym] === str[i] && sym !== i) {
+      sym += 1;
+      i = 0;
+    }
+  }
+  if (sym === str.length) return null;
+  return str[sym];
 }
 
 
@@ -211,8 +219,8 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, s, e) {
+  return `${s ? '[' : '('}${Math.min(a, b)}, ${Math.max(a, b)}${e ? ']' : ')'}`;
 }
 
 
@@ -228,8 +236,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -245,8 +253,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return Number(num.toString().split('').reverse().join(''));
 }
 
 
@@ -270,8 +278,15 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(cnn) {
+  const one = cnn.toString().split('').map((el) => Number(el)).reverse();
+  const two = one.map((el, index) => (((index + 1) % 2) === 0 ? el * 2 : el));
+  const three = [];
+  two.forEach((el) => {
+    three.push(el > 9 ? el - 9 : el);
+  });
+  if (three.reduce((sum, curr) => sum + curr, 0) % 10 === 0) return true;
+  return false;
 }
 
 /**
